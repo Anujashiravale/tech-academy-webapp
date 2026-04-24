@@ -19,14 +19,14 @@ const Courses = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('courses/')
+    api.get('/api/courses/')
       .then(res => { setCourses(res.data); setLoading(false); })
       .catch(err => { console.error(err); setLoading(false); });
   }, []);
 
   const handleEnroll = async (id) => {
     try {
-      await api.post(`courses/${id}/enroll/`);
+      await api.post(`/api/courses/${id}/enroll/`);
       alert('Successfully enrolled!');
     } catch (err) {
       alert(err.response?.data?.detail || 'Please login to enroll.');
@@ -61,7 +61,7 @@ const Login = ({ setAuth }) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await api.post('users/login/', { username, password });
+      const res = await api.post('/api/users/login/', { username, password });
       localStorage.setItem('access_token', res.data.access);
       localStorage.setItem('refresh_token', res.data.refresh);
       setAuth(true);
@@ -99,7 +99,7 @@ const Register = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await api.post('users/register/', { username, password });
+      await api.post('/api/users/register/', { username, password });
       alert('Registration successful! Please login.');
       window.location.href = '/login';
     } catch (err) {
@@ -133,7 +133,7 @@ const Dashboard = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('enrollments/')
+    api.get('/api/enrollments/')
       .then(res => { setEnrollments(res.data); setLoading(false); })
       .catch(err => { console.error(err); setLoading(false); });
   }, []);
