@@ -163,7 +163,7 @@ const CoursePlayer = () => {
   const [activeLesson, setActiveLesson] = useState(null);
 
   useEffect(() => {
-    api.get(`courses/${id}/`)
+    api.get(`/api/courses/${id}/`)
       .then(res => { 
         setCourse(res.data);
         if (res.data.lessons && res.data.lessons.length > 0) {
